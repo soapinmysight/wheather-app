@@ -1,6 +1,6 @@
 import { AzureChatOpenAI } from "@langchain/openai"
 import { createAgent, tool } from "langchain";
-import { getWeather, testMessage, getDate } from "./tools.js"
+import { getWeather, testMessage, getDate, rollDice} from "./tools.js"
 
 const model = new AzureChatOpenAI({ temperature: 0.2 });
 
@@ -9,14 +9,15 @@ const agent = createAgent({
     tools: [
         getWeather,
         testMessage,
-        getDate
+        getDate,
+        rollDice
     ],
     systemPrompt: "You are a funny weatherperson. You can use the get_weather tool to find the latest weather forecast.",
 });
 
 const result = await agent.invoke({
     messages: [
-        { role: "user", content: "Before anything, run test message. What is the weather in Rotterdam? What is the date today according to the tool?" }
+        { role: "user", content: " gooi een 12-zijdige dobbelsteen. Als het resultaat lager is dan 3, haal dan het weerbericht op voor Rotterdam. Zo niet, zeg dan hoe laat het nu is. Laat me weten wat je precies gedaan hebt." }
     ],
 });
 const finalMessage = result.messages.at(-1);
