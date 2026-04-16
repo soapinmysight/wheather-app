@@ -1,14 +1,23 @@
 import { AzureChatOpenAI } from "@langchain/openai"
 import { createAgent, tool } from "langchain";
+import { getWeather, testMessage, getDate } from "./tools.js"
 
-console.log(process.env.AZURE_OPENAI_KEY) //check if the key is loaded correctly, should print the key in the console
+const model = new AzureChatOpenAI({ temperature: 0.2 });
 
+const agent = createAgent({
+    model,
+    tools: [
+        getWeather,
+        testMessage,
+        getDate
+    ],
+    systemPrompt: "You are a funny weatherperson. You can use the get_weather tool to find the latest weather forecast.",
+});
 
-const model = new AzureChatOpenAI({temperature: 0.2});
-
-const result = await model.invoke([
-  { 
-    role: "user", 
-    content: "Who is the enemy of He-Man?" 
-  }])
-console.log(result.content)
+const result = await agent.invoke({
+    messages: [
+        { role: "user", content: "Before anything, run test message. What is the weather in Rotterdam? What is the date today according to the tool?" }
+    ],
+});
+const finalMessage = result.messages.at(-1);
+console.log(finalMessage.content);
