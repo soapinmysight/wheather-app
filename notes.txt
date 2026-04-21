@@ -1,0 +1,18 @@
+Agent
+-model (llm)
+-system prompt
+-tools
+
+Tool
+-Functie (met een schema)
+-Beschrijving van de tool (parameters, zodat de llm begrijpt wat de tool kan)
+
+Structured response
+
+responseFormat: z.object({
+answer: z.string().describe("text response from user"),
+answer: z.url().describe("url to generated image").optional
+})
+
+RAG (retrieval augmented generation)
+informatie aan het taal model toevoegen (aan de systemprompt) zodat het taalmodel dit kan gebruiken
