@@ -2,6 +2,8 @@ import { TextLoader } from "@langchain/classic/document_loaders/fs/text"
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { AzureOpenAIEmbeddings, AzureChatOpenAI } from "@langchain/openai";
 import { MemoryVectorStore } from "@langchain/classic/vectorstores/memory";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
+
 
 //Langchain heeft document loaders waarmee je PDF, TXT, DOCX, GITHUB, CSV, JIRA, FIGMA en allerlei andere formaten kan inladen. We gaan oefenen met een TXT file. Zorg dat je minimaal een A4 aan tekst hebt in de public map. Na het inladen splitsen we de tekst in chunks, hierbij kan je nog aanpassen hoe groot de chunks moeten zijn.
 // laad tekstbestand
@@ -23,9 +25,14 @@ const embeddings = new AzureOpenAIEmbeddings({
 });
 
 //We kunnen nu in de vectorStore gaan zoeken naar relevante tekst voor een prompt
-const vectorStore = new MemoryVectorStore(embeddings);
+// const vectorStore = new MemoryVectorStore(embeddings);
+const vectorStore = new FaissStore(embeddings, {});
 await vectorStore.addDocuments(chunks);
 console.log("✅ vector store created!")
+
+//vector data opslaan
+await vectorStore.save("./documents");   // directory name
+console.log("✅ vector store saved!")
 
 const prompt = "What is the Gothic Design exhibition mascot named?"
 const relevantDocs = await vectorStore.similaritySearch(prompt);
