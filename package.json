@@ -8,6 +8,7 @@
     "agent": "node --env-file=.env agent.js",
     "test": "node --env-file=.env test.js",
     "create": "node --env-file=.env ./create.js",
+    "load": "node --env-file=.env ./load.js",
     "start": "node --env-file=.env --watch server.js"
   },
   "author": "",
