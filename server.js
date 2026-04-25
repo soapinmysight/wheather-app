@@ -5,7 +5,7 @@ const app = express()
 app.use(express.json())
 app.use(express.static("public"))
 
-app.post("/api/chat", async(req,res) => {
+app.post("/api/agent", async(req,res) => {
   const { prompt } = req.body
   const result = await callOpenAI(prompt)
   res.json({ response: result })

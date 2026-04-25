@@ -1,12 +1,12 @@
 import { createAgent, tool } from "langchain";
+import { AzureOpenAIEmbeddings } from "@langchain/openai";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
 
-
+//tool to get the weather for a given city using the OpenWeatherMap API. The tool takes a city name as input and returns the current temperature in that city. Make sure to set your OpenWeatherMap API key in the environment variable MY_WEATHER_KEY before using this tool.
 export const getWeather = tool(
     async ({ city }) => {
         console.log(`🔧 de weather tool wordt uitgevoerd!`)
-        ///
-
         const apiKey = process.env.MY_WEATHER_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
         const response = await fetch(url);
@@ -28,7 +28,7 @@ export const getWeather = tool(
     },
 );
 
-
+//tool to test if the tool system works
 export const testMessage = tool(
     async () => {
         console.log(`🔧 de test wordt uitgevoerd!`)
@@ -45,6 +45,7 @@ export const testMessage = tool(
     },
 );
 
+//tool to get the current date
 export const getDate = tool(
     async () => {
         console.log(`🔧 de getDate tool wordt uitgevoerd!`)
@@ -69,8 +70,7 @@ export const getDate = tool(
     },
 );
 
-
-
+//tool to roll a dice
 export const rollDice = tool(
     ({ sides }) => {
 
@@ -92,4 +92,32 @@ export const rollDice = tool(
         },
     },
 );
+
+
+//tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
+const embeddings = new AzureOpenAIEmbeddings({
+    temperature: 0,
+    azureOpenAIApiEmbeddingsDeploymentName: process.env.AZURE_EMBEDDING_DEPLOYMENT_NAME
+});
+
+const vectorStore = await FaissStore.load("./documents", embeddings);
+console.log("✅ vector store loaded!")
+
+export const retrieveInfo = tool(
+  async ({ query }) => {
+    console.log("🔧 now searching the document store")
+    const relevantDocs = await vectorStore.similaritySearch(query, 2)
+    const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
+    return context
+  },
+  {
+    name: "retrieve",
+    description: "Retrieve information related to recent events in the met museum",
+    schema: {
+        "type": "object",
+        "properties": { "query": { "type": "string" } },
+        "required": ["query"]
+    }
+  }
+)
 

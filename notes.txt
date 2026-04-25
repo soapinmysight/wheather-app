@@ -1,3 +1,5 @@
+next to do: les 8 Tool voor Document Search
+
 Agent
 -model (llm)
 -system prompt
