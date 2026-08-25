@@ -1,11 +1,14 @@
-import { AzureChatOpenAI } from "@langchain/openai"
+import { ChatOpenAI } from "@langchain/openai";
 import { createAgent, tool } from "langchain";
-import { getWeather, testMessage, getDate, rollDice, retrieveInfo} from "./tools.js"
+import { getWeather, testMessage, getDate, rollDice, retrieveInfo } from "./tools.js"
 import * as z from "zod";
 import { MemorySaver } from "@langchain/langgraph";
 
 const checkpointer = new MemorySaver();
-const model = new AzureChatOpenAI({ temperature: 0.2 });
+
+const model = new ChatOpenAI({
+    model: process.env.OPENAI_MODEL,
+});
 
 const agent = createAgent({
     model,
@@ -21,10 +24,16 @@ const agent = createAgent({
 });
 
 export async function callOpenAI(prompt) {
+
+    if (typeof prompt !== "string" || !prompt.trim()) {
+        throw new Error("A prompt is required.");
+    }
+
     console.log("callOpenAI called with:", prompt);
 
     const result = await agent.invoke({
-        messages: [{ role: "user", content: prompt }]},
+        messages: [{ role: "user", content: prompt }]
+    },
         { configurable: { thread_id: "1" } }
     );
 
@@ -33,6 +42,7 @@ export async function callOpenAI(prompt) {
 
     const finalMessage = result.messages.at(-1);
     console.log("final message:", finalMessage.content);
+
     return finalMessage.content;
 }
 

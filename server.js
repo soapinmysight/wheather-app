@@ -11,4 +11,4 @@ app.post("/api/agent", async(req,res) => {
   res.json({ response: result })
 })
 
-app.listen(3000, ()=> console.log("started"))
+app.listen(process.env.PORT, ()=> console.log("started"))

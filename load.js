@@ -1,12 +1,12 @@
-import { AzureOpenAIEmbeddings, AzureChatOpenAI } from "@langchain/openai";
+import { OpenAIEmbeddings, ChatOpenAI } from "@langchain/openai";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
 
 // vector store laden
-const embeddings = new AzureOpenAIEmbeddings({
-  temperature: 0,
-  azureOpenAIApiEmbeddingsDeploymentName: process.env.AZURE_EMBEDDING_DEPLOYMENT_NAME
-})
+const embeddings = new OpenAIEmbeddings({
+  model: "text-embedding-3-small"
+});
+
 const vectorStore = await FaissStore.load("./documents", embeddings);
 console.log("✅ vector store loaded!")
 
@@ -18,7 +18,10 @@ const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
 console.log("✅ found relevant documents!")
 
 // vraag stellen aan chatGPT4.1
-const model = new AzureChatOpenAI({ temperature: 0.2 })
+const model = new ChatOpenAI({
+  model: process.env.OPENAI_MODEL
+});
+
 const response = await model.invoke(`je krijgt de volgende vraag : ${prompt}, geef het antwoord door deze tekst te lezen ${context}.`);
 
 console.log(response.content)

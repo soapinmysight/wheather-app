@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("user-input");
 const button = document.getElementById("send-btn");
@@ -26,10 +28,10 @@ headers: {
 body: JSON.stringify({ prompt: text }),
 });
 
-```
+
 const data = await res.json();
 addMessage(data.response, "bot");
-```
+
 
 } catch (err) {
 addMessage("Error talking to server 😬", "bot");
@@ -43,4 +45,6 @@ input.addEventListener("keypress", (e) => {
 if (e.key === "Enter") {
 sendMessage();
 }
+});
+
 });

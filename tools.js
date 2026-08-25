@@ -1,5 +1,5 @@
 import { createAgent, tool } from "langchain";
-import { AzureOpenAIEmbeddings } from "@langchain/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
 
@@ -95,9 +95,8 @@ export const rollDice = tool(
 
 
 //tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
-const embeddings = new AzureOpenAIEmbeddings({
-    temperature: 0,
-    azureOpenAIApiEmbeddingsDeploymentName: process.env.AZURE_EMBEDDING_DEPLOYMENT_NAME
+const embeddings = new OpenAIEmbeddings({
+    model: "text-embedding-3-small"
 });
 
 const vectorStore = await FaissStore.load("./documents", embeddings);
