@@ -31,7 +31,7 @@ body: JSON.stringify({ prompt: text }),
 
 const data = await res.json();
 addMessage(data.response, "bot");
-
+playCharacterAnimation();
 
 } catch (err) {
 addMessage("Error talking to server 😬", "bot");

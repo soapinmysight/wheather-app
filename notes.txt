@@ -18,3 +18,7 @@ answer: z.url().describe("url to generated image").optional
 
 RAG (retrieval augmented generation)
 informatie aan het taal model toevoegen (aan de systemprompt) zodat het taalmodel dit kan gebruiken
+
+
+source character animation:
+https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
