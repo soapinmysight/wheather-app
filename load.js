@@ -8,14 +8,14 @@ const embeddings = new OpenAIEmbeddings({
 });
 
 const vectorStore = await FaissStore.load("./documents", embeddings);
-console.log("✅ vector store loaded!")
+console.log("vector store loaded!")
 
 // zoek relevante documenten
 const prompt = "When will the Gothic Design exhibition end?"
 
 const relevantDocs = await vectorStore.similaritySearch(`${prompt}`, 1);
 const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
-console.log("✅ found relevant documents!")
+console.log("found relevant documents!")
 
 // vraag stellen aan chatGPT4.1
 const model = new ChatOpenAI({

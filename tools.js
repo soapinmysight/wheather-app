@@ -3,6 +3,7 @@ import { OpenAIEmbeddings } from "@langchain/openai";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
 
+
 //tool to get the weather for a given city using the OpenWeatherMap API. The tool takes a city name as input and returns the current temperature in that city. Make sure to set your OpenWeatherMap API key in the environment variable MY_WEATHER_KEY before using this tool.
 export const getWeather = tool(
     async ({ city }) => {
@@ -83,7 +84,7 @@ export const rollDice = tool(
     {
         name: "roll_Dice",
         description: "rolling the dice...",
-         schema: {
+        schema: {
             type: "object",
             properties: {
                 sides: { type: "number" },
@@ -94,29 +95,48 @@ export const rollDice = tool(
 );
 
 
-//tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
+// create the same embedding model used when creating the vector store
 const embeddings = new OpenAIEmbeddings({
-    model: "text-embedding-3-small"
+    model: "text-embedding-3-small",
 });
 
-const vectorStore = await FaissStore.load("./documents", embeddings);
-console.log("✅ vector store loaded!")
+// load the saved FAISS vector store from the documents folder
+// export it so add-document.js can use the same active vector store
+export const vectorStore = await FaissStore.load(
+    "./documents",
+    embeddings,
+);
 
+console.log("✅ Vector store loaded!");
+
+
+//tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
 export const retrieveInfo = tool(
-  async ({ query }) => {
-    console.log("🔧 now searching the document store")
-    const relevantDocs = await vectorStore.similaritySearch(query, 2)
-    const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
-    return context
-  },
-  {
-    name: "retrieve",
-    description: "Retrieve information related to recent events in the met museum",
-    schema: {
-        "type": "object",
-        "properties": { "query": { "type": "string" } },
-        "required": ["query"]
+    async ({ query }) => {
+        console.log("🔧 now searching the document store for:", query)
+        // search for the two most relevant document chunks
+        const relevantDocs = await vectorStore.similaritySearch(query, 2)
+        // log which source documents were found
+        // so that you can check in Node.js if the correct document was used
+        relevantDocs.forEach((doc) => {
+            console.log(
+                "📄 Found information in:",
+                doc.metadata.source,
+            );
+        });
+        // combine the relevant document chunks into one context
+        const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
+        // return the context to the agent
+        return context
+    },
+    {
+        name: "retrieve",
+        description: "Retrieve closets contents of family members",
+        schema: {
+            "type": "object",
+            "properties": { "query": { "type": "string" } },
+            "required": ["query"]
+        }
     }
-  }
 )
 

@@ -22,3 +22,8 @@ informatie aan het taal model toevoegen (aan de systemprompt) zodat het taalmode
 
 source character animation:
 https://www.sitepoint.com/frame-by-frame-animation-css-javascript/
+
+add document sources:
+https://www.tutorialspoint.com/article/understanding-blocking-and-unblocking-of-code-execution-in-node
+https://www.tutorialspoint.com/expressjs/expressjs_form_data.htm
+

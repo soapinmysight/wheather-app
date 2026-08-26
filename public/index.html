@@ -9,21 +9,116 @@
     <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
     <script src="character-animation.js"></script>
     <script src="app.js"></script>
+    <script src="household-form.js"></script>
 </head>
 
-<body>
-    <div class="chat-container">
-        <h1>🌦️ Weather Agent</h1>
-        <div class="chat-area">
-            <img class="ai-character" src="/img/character/frame1.png" alt="AI character animation" />
-            <div id="chat-box"></div>
-        </div>
-        <div class="input-container">
-            <input type="text" id="user-input" placeholder="Ask something..." />
-            <button id="send-btn">Send</button>
-        </div>
-    </div>
+<body id="top">
+    <nav class="navbar">
+        <a href="#chat">Chat</a>
+        <a href="#about">About</a>
+        <a href="#form">Gezinslid toevoegen</a>
+    </nav>
 
+    <main>
+        <header class="quote_section">
+            <p class="quote">
+                “Van jouw kledingkast naar de juiste outfit voor vandaag.”
+            </p>
+        </header>
+
+        <section id="chat" class="chat_section">
+            <div class="chat-container">
+                <h1>🌦️ Fashion Bot</h1>
+
+                <div class="chat-area">
+                    <img class="ai-character" src="/img/character/frame1.png" alt="AI character animation" />
+
+                    <div id="chat-box"></div>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="user-input" placeholder="Ask something..." />
+
+                    <button id="send-btn">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider_lblue_white"></div>
+
+        <section id="about" class="about_section">
+            <div class="about_content">
+                <h2>Hoe werkt Fashion Bot?</h2>
+
+                <p class="about_text">
+                    Fashion Bot helpt je outfits samen stellen voor jou en je familie leden in enkele seconden. Fashion
+                    Bot houdt rekening met het weer op de datum en plek waar de outfit voor is, en bedenkt creatieve
+                    combinaties met de kleding die je al hebt.
+                    Hoe werkt het? Hieronder kan je een familielid toevoegen en wat die persoon in zijn of haar kast
+                    heeft hangen. Gewoon tekstueel, geen eindeloos gedoe met het maken van foto's dus. Als je klaar bent
+                    om een outfit idee te krijgen, vraag je het vervolgens aan Fashion Bot!
+                </p>
+
+                <p class="about_text">
+                    Hoe werkt het? Hieronder kan je een familielid toevoegen en wat die persoon in zijn of haar kast
+                    heeft hangen. Gewoon tekstueel, geen eindeloos gedoe met het maken van foto's dus. Als je klaar bent
+                    om een outfit idee te krijgen, vraag je het vervolgens aan Fashion Bot!
+                </p>
+            </div>
+        </section>
+
+        <div class="divider_dblue_white"></div>
+
+        <section id="form" class="form_section">
+            <div class="household_form_box">
+                <h2>Nieuw lid aan het huishouden toevoegen</h2>
+
+                <form id="household-form" class="household_form">
+                    <label for="member-name">Naam</label>
+                    <input id="member-name" type="text" required />
+
+                    <label for="member-gender">Geslacht</label>
+                    <select id="member-gender" required>
+                        <option value="">Kies een optie</option>
+                        <option value="vrouw">Vrouw</option>
+                        <option value="man">Man</option>
+                        <option value="anders">Anders</option>
+                    </select>
+
+                    <label for="member-age">Leeftijd</label>
+                    <input id="member-age" type="number" min="0" required />
+
+                    <label for="member-wardrobe">
+                        Inhoud kledingkast
+                    </label>
+
+                    <textarea id="member-wardrobe" rows="9" required placeholder="Korte mouwen shirts:
+- rood
+- groen met dino's
+- grijs (polo)
+
+Lange mouwen:
+- blauw en rood
+- ruimtevaartshirt"></textarea>
+
+                    <button type="submit" class="household_submit_btn">
+                        Gezinslid toevoegen
+                    </button>
+
+                    <p id="household-status" class="household_status" role="status"></p>
+                </form>
+            </div>
+        </section>
+
+        <div class="divider_lblue_white"></div>
+    </main>
+
+    <footer class="footer">
+        <p>
+            Fashion Bot combineert je kledingkast met het weer
+            om een passende outfit voor ieder gezinslid te bedenken.
+        </p>
+    </footer>
 </body>
 
 </html>
