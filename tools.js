@@ -1,6 +1,7 @@
-import { createAgent, tool } from "langchain";
+import { tool } from "langchain";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
+
 
 
 
@@ -29,23 +30,6 @@ export const getWeather = tool(
     },
 );
 
-//tool to test if the tool system works
-export const testMessage = tool(
-    async () => {
-        console.log(`🔧 de test wordt uitgevoerd!`)
-        return `🔧 de getWeather tool zegt: hallo world`
-    },
-    {
-        name: "get_test",
-        description: "Test message without parameters",
-        schema: {
-            type: "object",
-            properties: {},
-            required: [],
-        },
-    },
-);
-
 //tool to get the current date
 export const getDate = tool(
     async () => {
@@ -57,7 +41,7 @@ export const getDate = tool(
             month: "long",
             day: "numeric",
         });
-        console.log(today)
+        console.log("🔧 de dag vandaag is", today)
         return `🔧 de getWeather tool zegt: het is vandaag ${today} `
     },
     {
@@ -71,60 +55,34 @@ export const getDate = tool(
     },
 );
 
-//tool to roll a dice
-export const rollDice = tool(
-    ({ sides }) => {
 
-        console.log(`🔧  Ik rol een ${sides}-sided dobbelsteen!`)
-
-        const result = Math.floor(Math.random() * sides) + 1
-        return `Ik gooide een ${result}`
-
-    },
-    {
-        name: "roll_Dice",
-        description: "rolling the dice...",
-        schema: {
-            type: "object",
-            properties: {
-                sides: { type: "number" },
-            },
-            required: ["sides"],
-        },
-    },
-);
-
-
-// create the same embedding model used when creating the vector store
+// create the same embedding model used when creating the vector store (same as in load.js)
 const embeddings = new OpenAIEmbeddings({
     model: "text-embedding-3-small",
 });
 
-// load the saved FAISS vector store from the documents folder
-// export it so add-document.js can use the same active vector store
+// load the saved FAISS vector store from the documents folder (same as in load.js)
+// export it so add-document.js can use the same active vector store 
 export const vectorStore = await FaissStore.load(
     "./documents",
     embeddings,
 );
 
-console.log("✅ Vector store loaded!");
+console.log("🔧 Vector store loaded!");
 
 
 //tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
 export const retrieveInfo = tool(
     async ({ query }) => {
         console.log("🔧 now searching the document store for:", query)
-        // search for the two most relevant document chunks
+        // search for the two most relevant document chunks (same as in load.js)
         const relevantDocs = await vectorStore.similaritySearch(query, 2)
         // log which source documents were found
         // so that you can check in Node.js if the correct document was used
         relevantDocs.forEach((doc) => {
-            console.log(
-                "📄 Found information in:",
-                doc.metadata.source,
-            );
+            console.log("🔧 Found information in:", doc.metadata.source);
         });
-        // combine the relevant document chunks into one context
+        // combine the relevant document chunks into one context (same as in load.js)
         const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
         // return the context to the agent
         return context

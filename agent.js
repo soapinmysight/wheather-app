@@ -1,6 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { createAgent, tool } from "langchain";
-import { getWeather, testMessage, getDate, rollDice, retrieveInfo } from "./tools.js"
+import { getWeather, getDate, retrieveInfo } from "./tools.js"
 import * as z from "zod";
 import { MemorySaver } from "@langchain/langgraph";
 
@@ -14,9 +14,7 @@ const agent = createAgent({
     model,
     tools: [
         getWeather,
-        testMessage,
         getDate,
-        rollDice,
         retrieveInfo
     ],
     checkpointer,
@@ -38,7 +36,7 @@ export async function callOpenAI(prompt) {
         throw new Error("A prompt is required.");
     }
 
-    console.log("callOpenAI called with:", prompt);
+    console.log("👮callOpenAI called with:", prompt);
 
     const result = await agent.invoke({
         messages: [{ role: "user", content: prompt }]
@@ -46,11 +44,11 @@ export async function callOpenAI(prompt) {
         { configurable: { thread_id: "1" } }
     );
 
-    console.log(result);
+    console.log("👮result to openAI call",result);
     // return result;
 
     const finalMessage = result.messages.at(-1);
-    console.log("final message:", finalMessage.content);
+    console.log("👮final message:", finalMessage.content);
 
     return finalMessage.content;
 }

@@ -34,8 +34,8 @@ addMessage(data.response, "bot");
 playCharacterAnimation();
 
 } catch (err) {
-addMessage("Error talking to server 😬", "bot");
-console.error(err);
+addMessage("Error talking to server", "bot");
+console.error("📱error after trying to POSR a message from user:",err);
 }
 }
 
