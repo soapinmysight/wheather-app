@@ -2,9 +2,6 @@ import { tool } from "langchain";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
-
-
-
 //tool to get the weather for a given city using the OpenWeatherMap API. The tool takes a city name as input and returns the current temperature in that city. Make sure to set your OpenWeatherMap API key in the environment variable MY_WEATHER_KEY before using this tool.
 export const getWeather = tool(
     async ({ city }) => {
@@ -42,7 +39,7 @@ export const getDate = tool(
             day: "numeric",
         });
         console.log("🔧 de dag vandaag is", today)
-        return `🔧 de getWeather tool zegt: het is vandaag ${today} `
+        return `🔧 de getDate tool zegt: het is vandaag ${today} `
     },
     {
         name: "get_date",
@@ -55,6 +52,31 @@ export const getDate = tool(
     },
 );
 
+//tool to roll a dice
+export const rollDice = tool(
+    ({ sides }) => {
+
+        console.log(`🔧  Ik rol een ${sides}-sided dobbelsteen!`)
+
+        const result = Math.floor(Math.random() * sides) + 1
+
+        console.log(`🔧 Ik gooide een ${result}`)
+
+        return `Ik gooide een ${result}`
+
+    },
+    {
+        name: "roll_Dice",
+        description: "rolling the dice...",
+         schema: {
+            type: "object",
+            properties: {
+                sides: { type: "number" },
+            },
+            required: ["sides"],
+        },
+    },
+);
 
 // create the same embedding model used when creating the vector store (same as in load.js)
 const embeddings = new OpenAIEmbeddings({
@@ -69,7 +91,6 @@ export const vectorStore = await FaissStore.load(
 );
 
 console.log("🔧 Vector store loaded!");
-
 
 //tool om informatie op te halen uit de vector store. Deze tool wordt later door het agent gebruikt om relevante informatie op te halen voor een prompt. De tool krijgt een query binnen, zoekt in de vector store naar relevante documenten en geeft deze terug als context.
 export const retrieveInfo = tool(

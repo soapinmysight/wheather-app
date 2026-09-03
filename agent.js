@@ -1,6 +1,6 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { createAgent, tool } from "langchain";
-import { getWeather, getDate, retrieveInfo } from "./tools.js"
+import { getWeather, getDate, rollDice, retrieveInfo } from "./tools.js"
 import * as z from "zod";
 import { MemorySaver } from "@langchain/langgraph";
 
@@ -15,6 +15,7 @@ const agent = createAgent({
     tools: [
         getWeather,
         getDate,
+        rollDice,
         retrieveInfo
     ],
     checkpointer,
@@ -54,5 +55,4 @@ export async function callOpenAI(prompt) {
 }
 
 //test calls to open ai:
-// callOpenAI("gooi een 6-zijdige dobbelsteen. Als het resultaat lager is dan 3, haal dan het weerbericht op voor Rotterdam. Zo niet, zeg dan hoe laat het nu is. Laat me weten wat je precies gedaan hebt.")
-// callOpenAI("gebruik de retrieveInfo tool om informatie op te halen over de mascotte van de Gothic Design tentoonstelling.")
+callOpenAI("👮gooi een 6-zijdige dobbelsteen. Als het resultaat lager is dan 3, haal dan het weerbericht op voor Rotterdam. Zo niet, zeg dan hoe laat het nu is. Laat me weten wat je precies gedaan hebt.")
