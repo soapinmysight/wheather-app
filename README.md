@@ -59,7 +59,7 @@ PORT=3000
 Replace the placeholder values with your own API keys. For model I used `gpt-5-nano` because it is inexpensive, but other compatible OpenAI models can be used. The application uses `text-embedding-3-small` to create embeddings for storing and retrieving wardrobe information.
 
 ### 7. Prepare household data
-The project includes dummy household data for testing. You can keep this data to try out the application or delete it and try out the application with your own data. Household member information is stored as text files in `public/originals/household-members` and as embeddings in the FAISS vector store in the `documents` folder. Do not delete the entire `documents` folder. It must contain a valid FAISS index for the application to start. You can add your own household members and their wardrobes through the application when it's running in the browser.
+The project includes dummy household data for testing. You can keep this data to try out the application or delete it and try out the application with your own data. Household member information is stored as text files in `public/originals/household-members` and as embeddings in the FAISS vector store in the `documents` folder. Do not delete the entire `documents` folder. You can add your own household members and their wardrobes through the application when it's running in the browser.
 
 **Note:** Deleting the dummy text files does not remove their information from the FAISS vector store.
 
