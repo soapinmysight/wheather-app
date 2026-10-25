@@ -45,9 +45,7 @@ export async function callOpenAI(prompt) {
         { configurable: { thread_id: "1" } }
     );
 
-    console.log("👮result to openAI call",result);
     // return result;
-
     const finalMessage = result.messages.at(-1);
     console.log("👮final message:", finalMessage.content);
 

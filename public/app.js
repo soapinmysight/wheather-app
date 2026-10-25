@@ -28,7 +28,6 @@ headers: {
 body: JSON.stringify({ prompt: text }),
 });
 
-
 const data = await res.json();
 addMessage(data.response, "bot");
 playCharacterAnimation();

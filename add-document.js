@@ -15,9 +15,9 @@ export async function addDocument({
     "./public/originals/household-members";
 
   // make this folder if it does not yet exist
-  await mkdir(folder, {recursive: true});
+  await mkdir(folder, { recursive: true });
   //give every document a unique file path
-  const filePath =`${folder}/household-${Date.now()}.txt`;
+  const filePath = `${folder}/household-${Date.now()}.txt`;
 
   // put the form data in a text template
   const documentText = `

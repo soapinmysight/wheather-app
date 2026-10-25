@@ -1,6 +1,5 @@
 # don't push personal data about the closets
 public/originals/
-documents/
 
 # Logs
 logs
