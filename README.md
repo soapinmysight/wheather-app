@@ -2,10 +2,15 @@
 
 ## Project description
 **Target audience:** Fashion Forecast is designed for young adults and adults aged 18–45 who struggle to choose outfits suitable for the weather and occasion. Users can read and write Dutch and are familiar with chat interfaces like WhatsApp.
+
 **Purpose:** The chatbot helps users save time and find inspiration by suggesting outfits based on their wardrobe, current weather conditions, and personal preferences.
-**Functionality:** Users add clothing items through text rather than photos. The chatbot retrieves relevant items from their wardrobe and uses a weather API to provide suitable outfit recommendations.&#x20;
+
+**Functionality:** Users add clothing items through text rather than photos. The chatbot retrieves relevant items from their wardrobe and uses a weather API to provide suitable outfit recommendations.
+
 **Personality:** Fashion Forecast is friendly, enthusiastic, and creative. It asks clarifying questions when necessary and offers personalized styling suggestions.
+
 **User interface:** The chatbot is called Fashion Forecast and features a fashionista robot avatar.
+
 **Unique features:** Unlike similar applications, users don't need to photograph and upload every clothing item, making setup easier and faster. Users can also add wardrobes belonging to others, such as children or people they care for. The chatbot can combine clothing from multiple wardrobes when needed.
 
 
