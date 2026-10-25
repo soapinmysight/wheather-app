@@ -1,19 +1,13 @@
 # wheather-app
 
 ## Project description
-Target audience: This chatbot is designed for young adults and adults (aged 18–45) who think about their clothing choices on a daily basis. Users often find it challenging to put together outfits that are appropriate for the weather and the occasion. The target audience is proficient in reading and writing Dutch and is familiar with standard chat interfaces, such as those used in WhatsApp.
+**Target audience:** Fashion Forecast is designed for young adults and adults aged 18–45 who struggle to choose outfits suitable for the weather and occasion. Users can read and write Dutch and are familiar with chat interfaces like WhatsApp.
+**Purpose:** The chatbot helps users save time and find inspiration by suggesting outfits based on their wardrobe, current weather conditions, and personal preferences.
+**Functionality:** Users add clothing items through text rather than photos. The chatbot retrieves relevant items from their wardrobe and uses a weather API to provide suitable outfit recommendations.&#x20;
+**Personality:** Fashion Forecast is friendly, enthusiastic, and creative. It asks clarifying questions when necessary and offers personalized styling suggestions.
+**User interface:** The chatbot is called Fashion Forecast and features a fashionista robot avatar.
+**Unique features:** Unlike similar applications, users don't need to photograph and upload every clothing item, making setup easier and faster. Users can also add wardrobes belonging to others, such as children or people they care for. The chatbot can combine clothing from multiple wardrobes when needed.
 
-Objective: The agent helps users quickly select a suitable outfit based on the items in their own wardrobe, current weather conditions, and personal preferences. It is aimed at individuals who want to save time and are looking for inspiration for their daily attire.
-
-Functionality: The agent can process a text-based document containing an inventory of the user’s wardrobe—provided by the user in advance—to identify relevant clothing items. Additionally, the agent integrates with a weather API to retrieve current meteorological conditions. Future iterations could include an image generator to provide a visual representation of the suggested outfit.
-
-Behavior and tone: The agent adopts a friendly, enthusiastic, and creative persona. It engages actively, asks clarifying questions when necessary, and proactively offers suggestions to tailor outfits to the user’s specific situation. The experience feels like interacting with a personal "fashionista robot" through a natural, conversational flow.
-
-User interface: The agent is called "Fashion Forecast" (referred to as "StyleBot" in the previous submission) and features a fashionista robot as its avatar.
-
-What distinguishes this chatbot from similar tools is that it does not require an image for every individual item of clothing; instead, garments are added to the system via text descriptions. This simplifies the setup process for the user: there’s no need to worry about lighting, no need to take garments out of the closet—only to photograph, refold, and put them back—and the hassle of uploading images is also avoided.
-
-Furthermore, you can add the wardrobes of other people. This is particularly useful for caregivers or parents of young children. If one wardrobe contains only a limited selection of items, you can ask the chatbot to check one of the other wardrobes to help complete an outfit.
 
 ## Installation
 
